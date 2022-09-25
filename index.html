@@ -38,7 +38,15 @@
         }
         #menu-btn {
             transition: 0.3s cubic-bezier(0, 0.2, 0.55, 1.04);
-            visibility: hidden;
+            cursor:pointer; 
+            font-size: 1.8rem;
+        }
+        .nav-open {
+            width: 250px;
+        }
+
+        .nav-close {
+            width: 0;
         }
         @media screen and (max-height: 450px) {
             .sidenav {
@@ -63,10 +71,19 @@
             transition: 0.5s;
 
         }
+        .menu-btn-desktop {
+          margin-right: 0rem;
+          font-size: 2rem;
+          line-height: 2rem;
+            /* visibility: hidden; */
+        }
+        #menu-btn {
+           visibility: hidden;
+        }
     }
 
         @media screen and (max-width: 768px) {
-            .sidenav {
+            .sidenav-mobile {
                 height: 100%;
                 width: 0;
                 position: fixed;
@@ -100,6 +117,9 @@
                 margin-right: 0px;
                 /* Same as the width of the sidenav */
             }
+            .menu-btn-mobile {
+            margin-right: 16rem;
+        }
             #menu-btn {
             visibility: visible;
         }
@@ -108,7 +128,7 @@
 </head>
 
 <body onresize="myFunction()">
-    <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav sidenav-mobile">
         <!-- <a href="javascript:void(0)" class="closebtn d-md-none d-sm-block" onclick="closeNav()">&times;</a> -->
         <a href="#">About</a>
         <a href="#">Services</a>
@@ -116,7 +136,7 @@
         <a href="#">Contact</a>
     </div>
     <div class="bg-info p-0">
-        <span id="menu-btn" style="font-size:3rem;cursor:pointer; line-height:2rem;" onclick="openNav()">&#9776;</span>
+        <span id="menu-btn" onclick="openNav()">&#9776;</span>
 
     </div>
 
@@ -137,21 +157,29 @@
         var c;
         function openNav() {
             sideNav = document.getElementById("mySidenav").style.width;
-            c = true;
+            c = false;
             if(sideNav !== "250px") {
+                c = true;
                 document.getElementById("mySidenav").style.width = "250px";
-                document.getElementById('menu-btn').style.marginRight = "16rem";
-                document.getElementById('menu-btn').style.lineHeight = "2.4rem";
-                document.getElementById('menu-btn').style.fontSize = "2.4rem";
+                document.querySelector('#menu-btn').classList.toggle('menu-btn-mobile');
+
+                // document.getElementById('menu-btn').style.marginRight = "16rem";
+                // document.querySelector('#menu-btn').classList.toggle('.menu-btn-desktop');
+                // document.getElementById('menu-btn').style.lineHeight = "2.4rem";
+                // document.getElementById('menu-btn').style.fontSize = "2.2rem";
                 document.getElementById('menu-btn').innerHTML = "&#10005;";
             }
            else {
+            // document.querySelector('#mySidenav').classList.toggle('nav-open');
+                
                 document.getElementById("mySidenav").style.width = "0";
-                document.getElementById('menu-btn').style.marginRight = "0rem";
-                document.getElementById('menu-btn').style.lineHeight = "2rem";
-                document.getElementById('menu-btn').style.fontSize = "3rem";
+                // document.getElementById('menu-btn').style.marginRight = "0rem";
+                document.querySelector('#menu-btn').classList.toggle('menu-btn-mobile');
+                // document.querySelector('#menu-btn').classList.toggle('menu-btn-desktop');
+                // document.getElementById('menu-btn').style.lineHeight = "2rem";
+                // document.getElementById('menu-btn').style.fontSize = "2rem";
                 document.getElementById('menu-btn').innerHTML = "&#9776;";
-                document.querySelector('.fa-xmark').classList.toggle('d-none')
+                // document.querySelector('.fa-xmark').classList.toggle('d-none')
 
            }
         }
@@ -195,12 +223,12 @@
   var h = window.outerHeight;
   if (w > 768) {
                 console.log("big");
-                // document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("mySidenav").style.width = "250px";
 
             } 
-            else {
+            else if(c == false) {
                     console.log("samll");
-                // document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("mySidenav").style.width = "0";
                
             }
   var txt = "Window size: width=" + w + ", height=" + h;
